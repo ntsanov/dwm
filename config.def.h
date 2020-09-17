@@ -124,7 +124,6 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_b,      					spawn, SHCMD("$BROWSER") },
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 	{ 0,							XK_ISO_Next_Group, 			spawn, SHCMD(kb_layout) },
-	/* Sound - With 0 as modifier, you are able to use the keys directly. */
 	{ 0,                       		XF86XK_AudioLowerVolume, 	spawn, SHCMD(downvol) },
 	{ 0,                       		XF86XK_AudioMute, 			spawn, SHCMD(mutevol) },
 	{ 0,                       		XF86XK_AudioRaiseVolume, 	spawn, SHCMD(upvol) },
