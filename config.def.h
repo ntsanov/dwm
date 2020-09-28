@@ -54,7 +54,7 @@ static const char mutevol[] = 	{ "pamixer -t; pkill -RTMIN+1 dwmblocks" };
 static const char mon_br_up[] = 	{ "xbacklight -inc 10" };
 static const char mon_br_down[] = 	{ "xbacklight -dec 10" };
 static const char kb_layout[] = { "setxkbmap -query | grep -q 'us' && setxkbmap bg phonetic || setxkbmap us; pkill -RTMIN+2 dwmblocks" };
-static const char prtscr_win = { "scrot -u '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f'" }
+static const char prtscr_win[] = { "scrot -u '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f' && notify-send 'window captured to clipboard'" }
 
 /* layout(s) */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
