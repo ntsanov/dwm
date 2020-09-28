@@ -38,8 +38,8 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   isterminal noswallow monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           0,         0,        -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           0,         0,        -1 },
 	{ "st",       NULL,       NULL,       0,            0,           1,         1,        -1 },
+	{ "Skype",    NULL,       NULL,       1 << 8,       1,           0,         0,        -1 },
 };
 
 // GIST - https://gist.github.com/palopezv/efd34059af6126ad970940bcc6a90f2e
@@ -54,7 +54,7 @@ static const char mutevol[] = 	{ "pamixer -t; pkill -RTMIN+1 dwmblocks" };
 static const char mon_br_up[] = 	{ "xbacklight -inc 10" };
 static const char mon_br_down[] = 	{ "xbacklight -dec 10" };
 static const char kb_layout[] = { "setxkbmap -query | grep -q 'us' && setxkbmap bg phonetic || setxkbmap us; pkill -RTMIN+2 dwmblocks" };
-static const char prtscr_win = { "scrot -u '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f'" }
+static const char prtscr_win[] = { "scrot -u '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f'" };
 
 /* layout(s) */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
@@ -133,6 +133,8 @@ static Key keys[] = {
 	{ 0,                       		XK_Print, 					spawn, SHCMD("flameshot gui") },
 	{ ControlMask|ShiftMask,		XK_Print, 					spawn, SHCMD(prtscr_win) },
 	{ MODKEY|ShiftMask,             XK_l, 						spawn, SHCMD("slock") },
+	{ MODKEY|ShiftMask,             XK_s, 						spawn, SHCMD("rofi -show ssh") },
+	{ MODKEY|ShiftMask,             XK_p, 						spawn, SHCMD("passmenu") },
 };
 
 /* button definitions */
