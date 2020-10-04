@@ -2,34 +2,27 @@
 
 
 #include <X11/XF86keysym.h>
+#include "colors.h"
 
 /* appearance */
 static const unsigned int borderpx  = 4;       /* border pixel of windows */
-static const unsigned int gappx     = 8;        /* gaps between windows */
+static const unsigned int gappx     = 0;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "monospace:size=14" };
 static const char dmenufont[]       = "monospace:size=14";
-//static const char col_gray1[]       = "#222222";
-static const char col_gray1[]       = "#282828";
-static const char col_gray2[]       = "#444444";
-//static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray3[]       = "#8c7e70";
-static const char col_gray4[]       = "#eeeeee";
-static const char orange[]       = "#f47c1a";
-static const char col_cyan[]        = "#005577";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { orange, col_gray1,  orange  },
+	[SchemeNorm] = { solarized_base00, solarized_base03, solarized_base00 },
+	[SchemeSel]  = { solarized_orange, solarized_base02, solarized_orange  },
 };
 
 /* staticstatus */
 static const int statmonval = 0;
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
+static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -56,7 +49,7 @@ static const char mutevol[] = 	{ "pamixer -t; pkill -RTMIN+1 dwmblocks" };
 static const char mon_br_up[] = 	{ "xbacklight -inc 10" };
 static const char mon_br_down[] = 	{ "xbacklight -dec 10" };
 static const char kb_layout[] = { "setxkbmap -query | grep -q 'us' && setxkbmap bg phonetic || setxkbmap us; pkill -RTMIN+2 dwmblocks" };
-static const char prtscr_win[] = { "scrot -u '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f' && notify-send 'window captured to clipboard'" }
+static const char prtscr_win[] = { "scrot -u '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f' && notify-send 'window captured to clipboard'" };
 
 /* layout(s) */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
@@ -65,9 +58,9 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
+	{ "[]",      tile },    /* first entry is default */
+	{ "[]",      NULL },    /* no layout function means floating behavior */
+	{ "[]",      monocle },
 };
 
 /* key definitions */
@@ -84,7 +77,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", solarized_base03, "-nf", solarized_base00, "-sb", solarized_base02, "-sf", solarized_orange, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
 static Key keys[] = {
