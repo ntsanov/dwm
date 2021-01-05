@@ -29,12 +29,13 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   isterminal noswallow monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           0,         0,        -1 },
-	{ "st",       NULL,       NULL,       0,            0,           1,         1,        -1 },
-	{ "Skype",    NULL,       NULL,       1 << 8,       0,           0,         0,        -1 },
-	{ "ViberPC",  NULL,       NULL,       1 << 8,       0,           0,         0,        -1 },
-	{ "Chromium", NULL,       NULL,       0,      	    0,           0,         0,        -1 },
+	/* class      			instance    title       tags mask     isfloating   isterminal noswallow monitor */
+	{ "Gimp",     			NULL,       NULL,       0,            1,           0,         0,        -1 },
+	{ "st",       			NULL,       NULL,       0,            0,           1,         1,        -1 },
+	{ "Skype",    			NULL,       NULL,       1 << 8,       1,           0,         0,        1 },
+	{ "ViberPC",  			NULL,       NULL,       1 << 8,       1,           0,         0,        1 },
+	{ "Chromium", 			NULL,       NULL,       0,            0,           0,         0,        -1 },
+	{ "microsoft teams - preview", 	NULL,       NULL,       1 << 8,       1,           0,         0,        1 },
 };
 
 // GIST - https://gist.github.com/palopezv/efd34059af6126ad970940bcc6a90f2e
