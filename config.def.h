@@ -29,13 +29,15 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      			instance    title       tags mask     isfloating   isterminal noswallow monitor float x,y,w,h  floatborderpx */
-	{ "Gimp",     			NULL,       NULL,       0,            1,           0,         0,        -1, 50,50,500,500, 5 },
-	{ "st",       			NULL,       NULL,       0,            0,           1,         1,        -1, 50,50,500,500, 5},
-	{ "Skype",    			NULL,       NULL,       1 << 8,       1,           0,         0,        1, 0,0,1200,700, 5},
-	{ "ViberPC",  			NULL,       NULL,       1 << 8,       1,           0,         0,        1, 0,732,1200,700, 5},
-	{ "Chromium", 			NULL,       NULL,       0,            0,           0,         0,        -1, 50,50,500,500, 5},
+	/* class      			            instance    title       tags mask     isfloating   isterminal noswallow monitor float x,y,w,h  floatborderpx */
+	{ "Gimp",     				         NULL,       NULL,       0,            1,           0,         0,        -1, 50,50,500,500, 5 },
+	{ "st",       				         NULL,       NULL,       0,            0,           1,         1,        -1, 50,50,500,500, 5},
+	{ "Skype",    				         NULL,       NULL,       1 << 8,       1,           0,         0,        1, 0,0,1200,700, 5},
+	{ "ViberPC",  				         NULL,       NULL,       1 << 8,       1,           0,         0,        1, 0,732,1200,700, 5},
+	{ "Chromium", 				         NULL,       NULL,       0,            0,           0,         0,        -1, 50,50,500,500, 5},
 	{ "Microsoft Teams - Preview", 	NULL,       NULL,       1 << 8,       1,           0,         0,        1, 1205,0,1300,1400, 5},
+	{ "obs",						         NULL,		   NULL,		   0,            0,           0,         1,        -1,0,0,1920,1080,0}
+   { "trayer",                      NULL,       NULL,       1 << 9        1,           0,         1,        1, 300,0,1620,30, 0}
 };
 
 // GIST - https://gist.github.com/palopezv/efd34059af6126ad970940bcc6a90f2e
@@ -43,14 +45,6 @@ static const Rule rules[] = {
 //static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%",     NULL };
 //static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%",     NULL };
 //static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "0", "toggle",  NULL };
-
-static const char upvol[]   = 	{ "pamixer --allow-boost -i 5; pkill -RTMIN+1 dwmblocks" };
-static const char downvol[] = 	{ "pamixer --allow-boost -d 5; pkill -RTMIN+1 dwmblocks" };
-static const char mutevol[] = 	{ "pamixer -t; pkill -RTMIN+1 dwmblocks" };
-static const char mon_br_up[] = 	{ "xbacklight -inc 10" };
-static const char mon_br_down[] = 	{ "xbacklight -dec 10" };
-static const char kb_layout[] = { "setxkbmap -query | grep -q 'us' && setxkbmap bg phonetic || setxkbmap us; pkill -RTMIN+2 dwmblocks" };
-static const char prtscr_win[] = { "scrot -u '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f' && notify-send 'window captured to clipboard'" };
 
 /* layout(s) */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
@@ -80,6 +74,14 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", solarized_base03, "-nf", solarized_base00, "-sb", solarized_base02, "-sf", solarized_orange, "-l", "12", NULL };
 static const char *termcmd[]  = { "st", NULL };
+static const char upvol[]   = 	{ "pamixer --allow-boost -i 5; pkill -RTMIN+1 dwmblocks" };
+static const char downvol[] = 	{ "pamixer --allow-boost -d 5; pkill -RTMIN+1 dwmblocks" };
+static const char mutevol[] = 	{ "pamixer -t; pkill -RTMIN+1 dwmblocks" };
+static const char mon_br_up[] = 	{ "xbacklight -inc 10" };
+static const char mon_br_down[] = 	{ "xbacklight -dec 10" };
+static const char kb_layout[] = { "setxkbmap -query | grep -q 'us' && setxkbmap bg phonetic || setxkbmap us; pkill -RTMIN+2 dwmblocks" };
+static const char prtscr_win[] = { "scrot -u '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f' && notify-send 'window captured to clipboard'" };
+static const char *passmenu[] = {"passmenu", "-fn", dmenufont, "-nb", solarized_base03, "-nf", solarized_base00, "-sb", solarized_base02, "-sf", solarized_orange, "-l", "12", NULL  };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -129,8 +131,8 @@ static Key keys[] = {
 	{ 0,                       		XK_Print, 					spawn, SHCMD("flameshot gui") },
 	{ ControlMask|ShiftMask,		XK_Print, 					spawn, SHCMD(prtscr_win) },
 	{ MODKEY|ShiftMask,             XK_l, 						spawn, SHCMD("slock") },
-	{ MODKEY|ShiftMask,             XK_s, 						spawn, SHCMD("rofi -show ssh") },
-	{ MODKEY|ShiftMask,             XK_p, 						spawn, SHCMD("passmenu") },
+	{ MODKEY|ShiftMask,             XK_s, 						spawn, SHCMD("rofi -monitor -4 -show ssh") },
+	{ MODKEY|ShiftMask,             XK_p, 						spawn, {.v = passmenu } },
 };
 
 /* button definitions */
